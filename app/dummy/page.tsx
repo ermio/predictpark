@@ -255,17 +255,19 @@ function DummyPageContent() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="safe-area-top px-6 py-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+      <header className="safe-area-top px-6 py-5 flex items-center justify-between backdrop-blur-md bg-white/80 border-b border-gray-100 sticky top-0 z-50">
+        <h1 className="text-2xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
           PredictPark
         </h1>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 text-sm text-gray-500">
-            <span className="font-medium">{currentIndex + 1}</span>
-            <span>/</span>
-            <span>{markets.length}</span>
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-100">
+            <span className="font-bold text-blue-600">{currentIndex + 1}</span>
+            <span className="text-gray-400">/</span>
+            <span className="text-gray-600 font-medium">{markets.length}</span>
           </div>
-          <AuthButton />
+          <div className="hidden sm:block">
+            <AuthButton />
+          </div>
         </div>
       </header>
 
@@ -296,59 +298,67 @@ function DummyPageContent() {
         </div>
 
         {/* Swipe Instructions */}
-        <div className="mt-8 flex items-center justify-center gap-8 text-sm font-medium">
-          <div className="flex items-center gap-2 text-red-500">
-            <span className="text-2xl">👈</span>
-            <span>DOWN</span>
+        <div className="mt-8 flex items-center justify-center gap-6">
+          <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-red-50 to-pink-50 rounded-2xl border border-red-100 shadow-sm">
+            <span className="text-3xl">👈</span>
+            <div className="text-left">
+              <div className="text-xs text-gray-500 font-medium">Swipe Left</div>
+              <div className="font-bold text-red-600">DOWN</div>
+            </div>
           </div>
-          <div className="w-px h-8 bg-gray-300" />
-          <div className="flex items-center gap-2 text-green-500">
-            <span>UP</span>
-            <span className="text-2xl">👉</span>
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
+          <div className="flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl border border-green-100 shadow-sm">
+            <div className="text-right">
+              <div className="text-xs text-gray-500 font-medium">Swipe Right</div>
+              <div className="font-bold text-green-600">UP</div>
+            </div>
+            <span className="text-3xl">👉</span>
           </div>
         </div>
       </main>
 
       {/* Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 safe-area-bottom bg-white/80 backdrop-blur-lg border-t border-gray-200 px-6 py-6">
+      <div className="fixed bottom-0 left-0 right-0 safe-area-bottom bg-white/90 backdrop-blur-xl border-t border-gray-200 px-6 py-6 shadow-2xl">
         <div className="max-w-md mx-auto flex items-center justify-center gap-4">
           {/* Undo Button */}
           <button
             onClick={handleUndo}
             disabled={currentIndex === 0}
-            className="w-14 h-14 rounded-full bg-gray-100 hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center shadow-md transition-all"
+            className="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl transition-all active:scale-95 border border-gray-300"
           >
             <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
             </svg>
           </button>
 
           {/* Down Button */}
           <button
             onClick={() => handleSwipe('left')}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-red-500 to-pink-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all active:scale-95"
+            className="relative w-20 h-20 rounded-full bg-gradient-to-br from-red-500 via-red-600 to-pink-500 text-white flex items-center justify-center shadow-2xl hover:shadow-red-500/50 transform hover:scale-110 transition-all active:scale-95 ring-4 ring-red-100"
           >
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-full"></div>
+            <svg className="w-10 h-10 relative z-10 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
           {/* Up Button */}
           <button
             onClick={() => handleSwipe('right')}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-green-500 to-emerald-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl transform hover:scale-110 transition-all active:scale-95"
+            className="relative w-20 h-20 rounded-full bg-gradient-to-br from-green-500 via-green-600 to-emerald-500 text-white flex items-center justify-center shadow-2xl hover:shadow-green-500/50 transform hover:scale-110 transition-all active:scale-95 ring-4 ring-green-100"
           >
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-full"></div>
+            <svg className="w-10 h-10 relative z-10 drop-shadow-lg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
             </svg>
           </button>
 
           {/* Info Button */}
           <button
-            className="w-14 h-14 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center shadow-md transition-all"
+            className="w-14 h-14 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 hover:from-gray-200 hover:to-gray-300 flex items-center justify-center shadow-lg hover:shadow-xl transition-all active:scale-95 border border-gray-300"
           >
             <svg className="w-6 h-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </button>
         </div>
